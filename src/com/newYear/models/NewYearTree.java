@@ -1,58 +1,58 @@
 package com.newYear.models;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class NewYearTree {
 
     private int id;
-    private String toys_igrushka;
-    private String color;
+    private List<NewYearToy> toys;
 
-    public NewYearTree(int id, String toys_igrushka, String color) {
+    public NewYearTree(int id, List<NewYearToy> toys) {
         this.id = id;
-        this.toys_igrushka = toys_igrushka;
-        this.color = color;
+        this.toys = toys;
     }
 
-    public NewYearTree()
-    {
+    public NewYearTree(){
+        toys = new ArrayList<>();
+    }
 
+    public List<NewYearToy> getToys() {
+        return toys;
+    }
+
+    public void setToys(List<NewYearToy> toys) {
+        this.toys = toys;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         NewYearTree that = (NewYearTree) o;
-        return Objects.equals(color, that.color);
+
+        if (id != that.id) return false;
+        return toys != null ? toys.equals(that.toys) : that.toys == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (toys != null ? toys.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return String.format("NewYearTree{id=%s, toys_igrush=%s, color=%s}", id, toys_igrushka, color);
+        return "NewYearTree{" +
+                "id=" + id +
+                ", toys=" + Arrays.toString(toys.toArray()) +
+                '}';
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getToys_igrushka() {
-        return toys_igrushka;
-    }
-
-    public void setToys_igrushka(String toys_igrushka) {
-        this.toys_igrushka = toys_igrushka;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void addToy(NewYearToy toy) {
+        toys.add(toy);
     }
 }
